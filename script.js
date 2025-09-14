@@ -203,7 +203,14 @@ const mediaData = [
  */
 function createImageElement(src, alt = "") {
   const img = document.createElement("img");
-  img.src = src;
+
+  // Load the small thumbnail for preview
+  const thumbSrc = src.replace("media/", "media/thumbs/"); 
+  img.src = thumbSrc;  
+
+  // Store the full image path in dataset for modal use
+  img.dataset.fullsrc = src;
+
   img.alt = alt || "Gallery image";
   img.loading = "lazy";
   img.classList.add("gallery-thumb");
@@ -219,20 +226,13 @@ function createImageElement(src, alt = "") {
 function createVideoWrapper(src) {
   const wrapper = document.createElement("div");
   wrapper.classList.add("video-wrapper");
-  wrapper.setAttribute("data-src", src);
+  wrapper.setAttribute("data-src", src); // store full video for modal use
 
-  // Inline preview video (muted so browsers allow autoplay if enabled)
-  const video = document.createElement("video");
-  video.muted = true;
-  video.loop = true;
-  video.playsInline = true; // mobile-friendly inline playback
-  video.preload = "metadata"; // only fetch metadata first
-
-  const source = document.createElement("source");
-  source.src = src;
-  source.type = "video/mp4";
-
-  video.appendChild(source);
+  // Instead of loading the full video here, use a lightweight preview
+  const previewImg = document.createElement("img");
+  previewImg.src = src.replace("media/", "media/thumbs/").replace(".mp4", ".jpg"); 
+  previewImg.alt = "Video thumbnail";
+  previewImg.loading = "lazy";
 
   // overlay play icon (click target)
   const overlay = document.createElement("div");
@@ -242,19 +242,12 @@ function createVideoWrapper(src) {
   overlay.tabIndex = 0; // keyboard focusable
   overlay.textContent = "▶";
 
-  wrapper.appendChild(video);
+  wrapper.appendChild(previewImg);
   wrapper.appendChild(overlay);
-
-  // Attempt to load thumbnail frame for preview
-  // Some browsers will block autoplay — so we don't rely on it.
-  // If video play fails, it still shows the poster frame (if any).
-  video.addEventListener("error", () => {
-    // Fallback: show a static poster if video fails (optional)
-    wrapper.classList.add("video-failed");
-  });
 
   return wrapper;
 }
+
 
 /**
  * Main renderer for the media gallery.
@@ -369,11 +362,10 @@ function openModal(index) {
 
   // If the clicked element is an <img>
   if (clicked.tagName === "IMG") {
-    // Show image element, hide video element
     modalImg.style.display = "block";
-    modalImg.src = clicked.src;
+    modalImg.src = clicked.dataset.fullsrc || clicked.src; // full resolution
     modalImg.alt = clicked.alt || "Full-size image";
-    // Video cleanup
+    
     modalVideo.pause();
     modalVideo.src = "";
     modalVideo.style.display = "none";
