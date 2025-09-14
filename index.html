@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BantayTubig - Capstone Journey</title>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts (Poppins) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- ===========================
+       Background Video
+       Plays automatically, muted, and loops
+  ============================ -->
+  <video autoplay muted loop id="backgroundVideo">
+    <source src="media/BantayTubig.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- ===========================
+       Header (Top Right)
+       Shows Project Title & Timestamp
+  ============================ -->
+  <div class="header-top-right">
+    <h1>BantayTubig</h1>
+    <p id="timestamp"></p> <!-- Time will be injected via JavaScript -->
+  </div>
+
+  <!-- ===========================
+       Main Content Wrapper
+  ============================ -->
+  <div class="main-content">
+
+    <!-- Thank You Message -->
+    <div class="thankyou-message">
+      <h2>Maraming Salamat po!</h2>
+      <p>
+        Kami po ay taus-pusong nagpapasalamat sa inyong suporta at tiwala.
+        Dahil dito, matagumpay naming MATATAPOS* ang aming Capstone Project.
+      </p>
+    </div>
+
+    <!-- ===========================
+         Capstone Journey / Timeline Section
+    ============================ -->
+    <div class="journey-section">
+      <h2>Ang Aming Capstone Journey</h2>
+      <p>Dito makikita yung timeline at journey ng aming proyekto mula umpisa hanggang sa pagtatapos.</p>
+
+      <!-- Media Gallery (Images/Videos are dynamically injected) -->
+      <div class="media-gallery"></div>
+
+     
+    </div> <!-- End of Journey Section -->
+     <!-- ===========================
+           Meet the Developers Section
+           Cards for each developer, populated by about.js
+      ============================ -->
+      <div class="content-card">
+        <div class="card-header">
+          <h2>Meet the Developers</h2>
+        </div>
+        <div class="developers-container"></div>
+      </div>
+
+      <!-- ===========================
+          System Demo Section
+          Contains warnings & demo button
+      =========================== -->
+      <div class="content-card demo-section">
+        <div class="card-header">
+          <h2>Try Our System Demo</h2>
+        </div>
+
+        <div class="demo-content">
+          <p>
+            Pwede mong subukan ang demo ng aming 
+            <strong>BantayTubig - Smart Water Quality Monitoring System with Machine Learning</strong>
+            para makita kung paano ito gumagana.
+          </p>
+
+          <!-- Demo Warning 1 -->
+          <div class="demo-warning">
+            <!-- Warning Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M1 21h22L12 2 1 21zm12-3h-2v2h2v-2zm0-8h-2v6h2v-6z"/>
+            </svg>
+            <span>Ang demo ay gumagamit ng <strong>dynamic fake sensor readings</strong> para sa pagpapakita.</span>
+          </div>
+
+          <!-- Demo Warning 2 -->
+          <div class="demo-warning">
+            <!-- Warning Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M1 21h22L12 2 1 21zm12 14h-2v-2h2v2zm0-8h-2v6h2v-6z"/>
+            </svg>
+            <span>May mga features na <strong>limited lang kumpara sa totoong device</strong>.</span>
+          </div>
+
+          <!-- Demo Warning 3: User Account Notice -->
+          <div class="demo-warning">
+            <!-- Warning Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M1 21h22L12 2 1 21zm12-3h-2v2h2v-2zm0-8h-2v6h2v-6z"/>
+            </svg>
+            <span>Pansinin: Ang iyong <strong>user account</strong> para sa pag-login sa demo ay <strong>maaaring tanggalin soon</strong> para sa ease system demo check.</span>
+          </div>
+
+          <!-- Demo Button -->
+          <a href="https://bantaytubig.onrender.com/" target="_blank" class="demo-btn">Visit Demo</a>
+        </div>
+      </div>
+
+  </div> <!-- End of Main Content -->
+
+  <!-- ===========================
+       Media Modal
+       Used for viewing gallery items in fullscreen
+  ============================ -->
+  <div id="mediaModal" class="media-modal">
+    <span class="media-close">&times;</span> <!-- Close button -->
+    <span class="media-prev">&#10094;</span> <!-- Previous button -->
+    <span class="media-next">&#10095;</span> <!-- Next button -->
+    <img id="mediaContent" class="media-modal-content"> <!-- Image Display -->
+    <video id="mediaVideo" class="media-modal-content" controls></video> <!-- Video Display -->
+  </div>
+
+  <!-- ===========================
+       CV Modal
+       Hidden by default; opened when a developer card is clicked
+       Content is dynamically injected via about.js
+  ============================ -->
+  <div id="cvModal" class="modal-overlay">
+    <div class="modal-content wide">
+      <div class="modal-header">
+        <h2 id="cvModalTitle">Developer CV</h2>
+        <button id="closeCvModalBtn" class="modal-close-btn">&times;</button>
+      </div>
+      <div id="cvModalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ===========================
+       JavaScript Libraries & Main Script
+  ============================ -->
+  <!-- QR Code Generator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- jsPDF for PDF downloads -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Main Script -->
+  <script src="script.js"></script>
+</body>
+
+</html>
